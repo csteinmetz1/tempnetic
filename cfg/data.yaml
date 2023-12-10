@@ -1,0 +1,6 @@
+data:
+  class_path: tempnetic.data.AudioFileDataModule
+  init_args:
+    root_dir: /import/c4dm-datasets-ext/tempnetic-dataset/GTZAN
+    batch_size: 32
+    num_workers: 8

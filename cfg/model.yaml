@@ -1,0 +1,18 @@
+model:
+  class_path: tempnetic.system.System
+  init_args:
+    lr: 0.0003
+    weight_decay: 0.0001
+    
+    model:
+      class_path: tempnetic.models.panns.Cnn14
+      init_args:
+        embed_dim: 1
+        sample_rate: 22050
+        window_size: 2048
+        hop_size: 1024
+        mel_bins: 64
+        fmin: 20
+        fmax: 10000
+        use_batchnorm: True
+        use_stdnorm: False
