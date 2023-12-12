@@ -1,6 +1,7 @@
 seed_everything: true
 
 trainer:
+  seed: 42
   precision: 32
   num_sanity_val_steps: 4
   accumulate_grad_batches: 1
@@ -18,7 +19,7 @@ trainer:
       init_args:
         save_last: true
         save_top_k: 1
-        monitor: val_loss
+        monitor: val_accuracy_epoch
         filename: "{epoch}-{step}"
     - class_path: pytorch_lightning.callbacks.ModelSummary
       init_args:
