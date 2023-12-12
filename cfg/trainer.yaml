@@ -1,7 +1,6 @@
-seed_everything: true
+seed_everything: 42
 
 trainer:
-  seed: 42
   precision: 32
   num_sanity_val_steps: 4
   accumulate_grad_batches: 1
