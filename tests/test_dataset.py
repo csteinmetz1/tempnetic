@@ -13,3 +13,9 @@ if __name__ == "__main__":
     for bidx, batch in enumerate(train_dataset):
         audio, bpm = batch
         print(audio.shape, bpm.shape)
+
+        # check for silence
+        energy = (audio.abs() ** 2).mean()
+        if energy < 0.001:
+            print(f"Silence detected: {energy:0.4f}.")
+            print(audio)
