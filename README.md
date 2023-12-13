@@ -3,7 +3,7 @@ Tempo estimation
 
 ## Installation
 
-Install the package in editable mode:
+Install the package in editable mode in virtual environment.
 ```
 python -m venv env
 source env/bin/activate
@@ -13,12 +13,17 @@ pip install -e .
 
 ## Inference
 
+Estimate global tempo for a song:
+
 ```
+python scripts/run.py ./GTZAN/audio/country/country.00013.wav
+# Estimated tempo: 127.13 BPM
 ```
 
 ## Training
+Launch training on GPU by passing the trainer, 
 ```
-CUDA_VISIBLE_DEVICES=4 python scripts/main.py fit \
+CUDA_VISIBLE_DEVICES=5 python scripts/main.py fit \
 -c cfg/trainer.yaml \
 -c cfg/models/mobilenet.yaml \
 -c cfg/data.yaml
@@ -103,9 +108,33 @@ Accuracy is defined as the percentage of predictions that are within 8% of the g
 Using the `eval.py` script, we can evaluate the model on the validation set.
 We also make a plot of the predictions vs ground truth tempo in an XY plot.
 
+<img src="outputs/librosa_xy.png" alt="librosa" width="400px"/>
+<img src="outputs/tempnetic_xy.png" alt="tempnetic" width="400px"/>
+
+
 ## Inference
 
 We should also consider how we handle making predictions for songs that are both shorter and longer than the training block size of 11 seconds. 
+
+## Project
+
+The project is implemented as a python package. We use PyTorch and PyTorch Lightning for the model and training.
+For model configuration we the LightningCLI, which allow us to use yaml files to configure the model and training.
+
+- `cfg`: LightningCLI configuration files
+- `scripts`: Scripts for training and evaluation
+    - `main.py`: Main script for training and evaluation
+    - `eval.py`: Standalone script for evaluation (librosa baseline and model)
+    - `explore.py`: Standalone script for data exploration
+- `tempnetic`: Python package
+    - `utils.py`: Utility functions
+    - `models`: PyTorch models
+        - `mobilenet.py`: MobileNetV2 model
+        - `panns.py`: PANNs model
+    - `data.py`: PyTorch dataset and LightningDataModule
+    - `callbacks.py`: Lightning callbacks
+- `tests`: Simple tests
+
 
 ## Brainstorming
 
@@ -159,4 +188,5 @@ Considerations:
 ## Resources
 
 - [Tempo Estimation @ MIREX](https://www.music-ir.org/mirex/wiki/2014:Audio_Tempo_Estimation)
-- [Librosa Tempo Estimation](https://librosa.org/doc/latest/auto_examples/plot_tempogram.html)
+- [Librosa Tempo Estimation](https://librosa.org/doc/main/generated/librosa.feature.tempo.html)
+- [Librosa Tempogram](https://librosa.org/doc/main/generated/librosa.feature.tempogram.html)

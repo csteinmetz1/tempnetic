@@ -34,7 +34,7 @@ if __name__ == "__main__":
     system.eval()
 
     # load the validation dataset
-    root_dir = "/import/c4dm-datasets-ext/tempnetic-dataset/GTZAN"
+    root_dir = "/import/c4dm-datasets-ext/tempnetic-dataset/GTZAN-extended"
 
     dm = AudioFileDataModule(root_dir, batch_size=1, num_passes=1, num_workers=1)
     dm.setup()
@@ -81,6 +81,6 @@ if __name__ == "__main__":
     # plot the results
     for model, pred_bpms in predictions.items():
         fig, axs = plt.subplots(1, 1, figsize=(4, 4))
-        plot_xy(pred_bpms, bpms, 50, 250, axs=axs)
+        plot_xy(pred_bpms, bpms, 50, 250, axs=axs, title=model)
         plt.savefig(f"outputs/{model}_xy.png", dpi=300)
         plt.close()

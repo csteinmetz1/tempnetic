@@ -188,7 +188,7 @@ class AudioFileDataModule(pl.LightningDataModule):
 
         for genre in genres:
             genre_examples = [e for e in examples if e["genre"] == genre]
-            random.shuffle(genre_examples)
+            genre_examples = sorted(genre_examples, key=lambda x: x["song_id"])
             genre_train_examples = genre_examples[: int(len(genre_examples) * 0.8)]
             genre_val_examples = genre_examples[int(len(genre_examples) * 0.8) :]
 

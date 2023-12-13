@@ -27,7 +27,14 @@ class MoveConfigCallback(pl.Callback):
         shutil.copyfile(src_dir, dest_dir)
 
 
-def plot_xy(pred_bpms, bpms, min_bpm: float, max_bpm: float, axs=None):
+def plot_xy(
+    pred_bpms,
+    bpms,
+    min_bpm: float,
+    max_bpm: float,
+    axs=None,
+    title: str = "XY Plot",
+):
     if axs is None:
         fig, axs = plt.subplots(1, 1, figsize=(10, 10))
 
@@ -46,6 +53,8 @@ def plot_xy(pred_bpms, bpms, min_bpm: float, max_bpm: float, axs=None):
     # y = [min_bpm * 0.92, max_bpm * 0.92]
     # plt.plot(x, y, color="lightgray", linewidth=2, linestyle="--")
 
+    plt.grid(c="lightgray")
+    axs.set_title(f"{title}")
     axs.set_xlabel("Predicted BPM")
     axs.set_ylabel("True BPM")
     plt.tight_layout()

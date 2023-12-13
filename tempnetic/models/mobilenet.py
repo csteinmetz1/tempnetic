@@ -55,8 +55,6 @@ class SpectrogramMobileNetV2(torch.nn.Module):
             freq_stripes_num=2,
         )
 
-        self.bn0 = torch.nn.BatchNorm2d(1)
-
     def forward(self, x: torch.Tensor, tempogram: torch.Tensor = None):
         if tempogram is None:
             bs, chs, seq_len = x.shape
@@ -72,8 +70,6 @@ class SpectrogramMobileNetV2(torch.nn.Module):
         # augment spectrogram
         if self.training:
             x = self.spec_augmenter(x)
-
-        x = self.bn0(x)
 
         # repeat channel dimension
         x = x.repeat(1, 3, 1, 1)
